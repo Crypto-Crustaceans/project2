@@ -20,7 +20,6 @@ CREATE TABLE "finbert" (
 
 CREATE TABLE "news" (
     "id" INT   NOT NULL,
-    "title" VARCHAR   NOT NULL,
     "date" TIMESTAMP   NOT NULL,
     "stock" VARCHAR   NOT NULL,
     CONSTRAINT "pk_news" PRIMARY KEY (
@@ -28,6 +27,6 @@ CREATE TABLE "news" (
      )
 );
 
-ALTER TABLE "news" ADD CONSTRAINT "fk_news_id" FOREIGN KEY("id")
-REFERENCES "finbert" ("id");
+ALTER TABLE "finbert" ADD CONSTRAINT "fk_finbert_id" FOREIGN KEY("id")
+REFERENCES "news" ("id");
 
