@@ -11,9 +11,6 @@ CREATE TABLE "yfinance" (
 CREATE TABLE "finbert" (
     "id" INT   NOT NULL,
     "sentence" VARCHAR   NOT NULL,
-    "logit_1" DECIMAL   NOT NULL,
-    "logit_2" DECIMAL   NOT NULL,
-    "logit_3" DECIMAL   NOT NULL,
     "prediction" VARCHAR   NOT NULL,
     "sentiment_score" DECIMAL   NOT NULL,
     CONSTRAINT "pk_finbert" PRIMARY KEY (
