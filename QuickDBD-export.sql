@@ -1,9 +1,5 @@
-﻿-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
--- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
-
-
-CREATE TABLE "yFinance" (
-    "date" DATETIME   NOT NULL,
+CREATE TABLE "yfinance" (
+    "date" TIMESTAMP   NOT NULL,
     "open" DECIMAL   NOT NULL,
     "high" DECIMAL   NOT NULL,
     "low" DECIMAL   NOT NULL,
@@ -28,7 +24,7 @@ CREATE TABLE "finbert" (
 CREATE TABLE "news" (
     "id" INT   NOT NULL,
     "title" VARCHAR   NOT NULL,
-    "date" DATETIME   NOT NULL,
+    "date" TIMESTAMP   NOT NULL,
     "stock" VARCHAR   NOT NULL,
     CONSTRAINT "pk_news" PRIMARY KEY (
         "id"
