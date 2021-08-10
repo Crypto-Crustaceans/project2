@@ -1,13 +1,10 @@
 # import libaries
-import datetime as dt
-import pandas as pd
 import sqlalchemy
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine, func, inspect
 from sqlalchemy.ext.automap import automap_base
-import pprint
 
-def finbert_app():
+def get_data():
 
     # create engine to postgres db
     engine = create_engine('postgresql+psycopg2://postgres:postgres@localhost:5432/fin_news_db')
@@ -23,21 +20,10 @@ def finbert_app():
     Finbert = Base.classes.finbert
     Yfinance = Base.classes.yfinance
 
-    # create inspector and show columns in table News
-    inspector = inspect(engine)
-    news_columns = inspector.get_columns('news')
-
-    # show columns in table Finbert
-    finbert_columns = inspector.get_columns('finbert')
-
-    # show columns in table Yfinance
-    yfinance_columns = inspector.get_columns('yfinance')
-
     # create session
     session = Session(engine)
 
     # SQL query to get data in format for js viz
-
     with engine.connect() as con:
 
         query = con.execute(
@@ -53,20 +39,27 @@ def finbert_app():
         )
 
     # put query results in a list
-    list = []
-    for r in query:
-        list.append(r)
+        list = []
+        for r in query:
+            list.append(r)
 
 
-    df = pd.DataFrame(list, columns =['date', 
-                                    'open', 
-                                    'high', 
-                                    'low', 
-                                    'close', 
-                                    'adj_close', 
-                                    'volume', 
-                                    'sentiment'
-                                    ])
+        df = pd.DataFrame(list, columns =['date', 
+                                        'open', 
+                                        'high', 
+                                        'low', 
+                                        'close', 
+                                        'adj_close', 
+                                        'volume', 
+                                        'sentiment'
+                                        ])
 
-    json = df.to_json(orient='records')
+        json = df.to_json(orient='records')
+    
+    # close connection
+        con.close()
+    engine.dispose()
+    
+    #return data in json format
+    return json
 
