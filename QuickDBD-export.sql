@@ -1,11 +1,14 @@
 CREATE TABLE "yfinance" (
-    "date" TIMESTAMP   NOT NULL,
+    "date" DATE   NOT NULL,
     "open" DECIMAL   NOT NULL,
     "high" DECIMAL   NOT NULL,
     "low" DECIMAL   NOT NULL,
     "close" DECIMAL   NOT NULL,
     "adj_close" DECIMAL   NOT NULL,
-    "volume" DECIMAL   NOT NULL
+    "volume" DECIMAL   NOT NULL,
+    CONSTRAINT "pk_yfinance" PRIMARY KEY (
+        "date"
+     )
 );
 
 CREATE TABLE "finbert" (
@@ -20,7 +23,7 @@ CREATE TABLE "finbert" (
 
 CREATE TABLE "news" (
     "id" INT   NOT NULL,
-    "date" TIMESTAMP   NOT NULL,
+    "date" TIMESTAMPTZ   NOT NULL,
     "stock" VARCHAR   NOT NULL,
     CONSTRAINT "pk_news" PRIMARY KEY (
         "id"
