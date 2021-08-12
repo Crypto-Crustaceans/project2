@@ -3,11 +3,11 @@ var svg = d3.select(".chart")
 
 var data = d3.json("http://127.0.0.1:5000/data").then(function(response) {
     
-    const timeParser = d3.timeParse("%m/%d/%Y");
+    //const timeParser = d3.timeParse("%m/%d/%Y");
 
     var data = response.map(function(d) {
         return {
-            date: timeParser(d.date),
+            date: new Date(d.date),
             value: +((d.close - d.open) / d.open),
             close: +d.close,
             sentiment: +d.sentiment
