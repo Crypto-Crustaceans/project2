@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Stock Viz</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+		<h1>Comparing Daily SPY Price Change and Financial News Sentiment</h1>
+		<h4>Historical SPY stock data obtained using yFinance python library</h4>
+		<h4>FinBERT financial sentiment analysis model used to analyze ~1 million news headlines</h4>
+		<h4>Custom calendar visualization created using d3.js</h4>
+		<div class="chart">
+		</div>
+		<div>
+			<canvas id="myChart"></canvas>
+		</div>
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<script src="chart_js.js"></script>
+		<script src="https://d3js.org/d3.v5.min.js"></script>
+		<script src="https://d3js.org/d3-array.v2.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+		<script type="text/javascript" src="calendar_app.js"></script>
+  </body>
+</html>
