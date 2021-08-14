@@ -1,5 +1,5 @@
 **Crypto-Crustaceans Project 2**
-# Financial Sentimnt Analysis Dashboard
+# Financial Sentiment Analysis Dashboard
 
 Final product: https://crypto-crustaceans.github.io/project2/
 
