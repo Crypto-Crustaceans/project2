@@ -11,6 +11,7 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         <link href="static/styles.css" rel="stylesheet" />
+        <link href="static/d3styles.css" rel="stylesheet" />
         <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
@@ -47,9 +48,9 @@
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">About</h2>
-                    <h3 class="section-subheading text-muted">For this project, our goal is to analyze the effect of financial news headlines on the market and display the result in an easy to intpetret dashboard. We are incorporating market data from Yahoo Finance and archived financial news articles. A source on Kaggle has 4 million articles for 6,000 stocks from 2009-2020. A sentiment analysis will be performed on financial texts using a pre-trained model finBERT, which will tell us whether a headline is positive, neutral, or negative.
+                    <h3 class="section-subheading text-muted">For this project, our goal was to analyze the effect of financial news on the market and display the results in an easy to interpret visualization. We are incorporating market data from Yahoo Finance and archived financial news articles of over 4 million articles for 6,000 stocks from 2009-2020. A sentiment analysis was performed using finBERT, a pre-trained NLP model, to identify positive, neutral, and negative news headlines.
 
-                        The sentiment analysis will be plotted against market movement data from Yahoo Finance into color-coded monthly calendars. We will have options to toggle between different time periods to review this over time.
+                        The sentiment analysis was plotted against market movement data from Yahoo Finance into a color-coded calendar.
                     </h3>
                 </div>
                 <div class="row text-center">
@@ -59,12 +60,12 @@
                             <i class="fas fa-terminal fa-stack-1x fa-inverse"></i>
                         </span>
                         <h4 class="my-3">FinBERT Sentiment Analysis</h4>
-                        <p class="text-muted">FinBERT's engine is a pre-trained sentiment analysis model that analyzes sentiment of financial text. It is built by further training the BERT language model in the finance domain. We accessed a large financial corpus to analyze over 1 million news articles.</p>
+                        <p class="text-muted">FinBERT is an NLP model trained to perform sentiment analysis on financial text. It was built by further training the BERT language model in the finance domain. We accessed a large financial news corpus to analyze over 1 million news articles.</p>
                     </div>
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-coinsp fa-stack-1x fa-inverse"></i>
+                            <i class="fas fa-chart-line fa-stack-1x fa-inverse"></i>
                         </span>
                         <h4 class="my-3">Yahoo Finance</h4>
                         <p class="text-muted">We've extracted market data to plot against news sentiment from Yahoo Finance. Using YFinance we were able to pull the daily performance of the SP500 going back to the start of the century.</p>
@@ -72,10 +73,10 @@
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-chart-line fa-stack-1x fa-inverse"></i>
+                            <i class="fas fa-eye fa-stack-1x fa-inverse"></i>
                         </span>
-                        <h4 class="my-3">Chart.js</h4>
-                        <p class="text-muted">This is a powerful JavaScript library that allows us to view datasets in varius chart types such as bar, line, area, pie, bubble, radar, polar, and scatter plots.</p>
+                        <h4 class="my-3">JavaScript Visualizations</h4>
+                        <p class="text-muted">We leveraged two JS libaries to build our visuzalizations. D3.js combines powerful visualization components and a data-driven approach to DOM manipulation to create custom, dynamic, and interactive data visualizations. Chart.js is used to simple, clean, and engaging HTML5 based JavaScript charts.</p>
                     </div>
                 </div>
             </div>
@@ -86,18 +87,18 @@
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Filter by Year</h2>
-                    <h3 class="section-subheading text-muted">Apply filters to the above visualizations.</h3>
-                    <h2>2020</h2>
+                    <h3 class="section-subheading text-muted">Apply filters to the below visualizations.</h3>
+                    <div id="plotFilters"></div>
                 </div>
             </div>
         </section>
 	
         <!-- Calendar Grid-->
-        <section class="page-section" id="calendar">
+        <section class="page-section bg-light" id="calendar">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Financial Journal Calendar</h2>
-                    <h3 class="section-subheading text-muted">This calendar will show financial news sentiment in the upper righthand corner and market movements in the lower lefthand corner. Solid green blocks represent positive news articles that day (on average) and the market closed higher than than prior day, while solid red indicates the opposite.</h3>
+                    <h2 class="section-heading text-uppercase">Financial Calendar</h2>
+                    <h3 class="section-subheading text-muted">This calendar shows financial news sentiment (upper righthand corners) and market movements (lower lefthand corners). Green blocks represent positive news headlines (on average) and price movements per day. Pink blocks represent negative news headlines (on average) and price movements per day.<br>The calendar was created using d3.js</h3>
                 </div>
                     <div id="d3calendar" style=" display: flex; justify-content: center; align-items: center;"></div>
             </div>
@@ -109,31 +110,8 @@
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Plot</h2>
-                    <h3 class="section-subheading text-muted">We've utilized Nivo library to visualize this data in a different way.</h3>
+                    <h3 class="section-subheading text-muted">Plotting price of GSPC over time.<br>The plot was created using chart.js</h3>
                 </div>
-                <div class="row">
-
-                        <!-- <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-base.min.js"></script>
-                        <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-data-adapter.min.js"></script>
-
-                        <div id="container" style="width: 100%; height: 500px"></div>
-                        <script>
-                          anychart.onDocumentReady(function() {
-                            anychart.data.loadJSONFile("test/data.json", function (data) {
-                              // create the chart
-                              chart = anychart.scatter();
-                              // assign the data to a series
-                              var series1 = chart.marker(data);
-                              // set title
-                              chart.title("Sentiment Score vs Market Move (%)");
-                              // set axes titles 
-                              chart.xAxis().title("Market Move (%)");
-                              chart.yAxis().title("Sentiment Score");
-                              // draw chart
-                              chart.container("container").draw();
-                            });
-                          })
-                        </script> -->
                 <div id="chartjsline"></div>
             </div>
         </section>
@@ -255,7 +233,6 @@
         <script src="https://d3js.org/d3.v5.min.js"></script>
 		<script src="https://d3js.org/d3-array.v2.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
-		<script type="text/javascript" src="static/calendar_app.js"></script>
-        <script src="static/line_plot.js"></script>
+		<script type="text/javascript" src="static/plots.js"></script>
     </body>
 </html>
