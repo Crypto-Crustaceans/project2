@@ -86,8 +86,8 @@
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Filter by Year</h2>
-                    <h3 class="section-subheading text-muted">Apply filters to the above visualizations.</h3>
-                    <h2>2020</h2>
+                    <h3 class="section-subheading text-muted">Apply filters to the below visualizations.</h3>
+                    <div id="plotFilters"></div>
                 </div>
             </div>
         </section>
@@ -111,31 +111,8 @@
             <div class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Plot</h2>
-                    <h3 class="section-subheading text-muted">We've utilized Chart.js library to visualize this data in a different way where we can see the overall trend.</h3>
+                    <h3 class="section-subheading text-muted">Plotting price of GSPC over time.<br>The plot was created using chart.js</h3>
                 </div>
-                <div class="row">
-
-                        <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-base.min.js"></script>
-                        <script src="https://cdn.anychart.com/releases/8.7.1/js/anychart-data-adapter.min.js"></script>
-
-                        <div id="container" style="width: 100%; height: 500px"></div>
-                        <script>
-                          anychart.onDocumentReady(function() {
-                            anychart.data.loadJSONFile("test/data.json", function (data) {
-                              // create the chart
-                              chart = anychart.scatter();
-                              // assign the data to a series
-                              var series1 = chart.marker(data);
-                              // set title
-                              chart.title("Sentiment Score vs Market Move (%)");
-                              // set axes titles 
-                              chart.xAxis().title("Market Move (%)");
-                              chart.yAxis().title("Sentiment Score");
-                              // draw chart
-                              chart.container("container").draw();
-                            });
-                          })
-                        </script>
                 <div id="chartjsline"></div>
             </div>
         </section>
