@@ -3,6 +3,8 @@
 
 Final product is located in the "final_app" folder in the Github.
 
+Presentation: https://docs.google.com/presentation/d/1lsu6Xndhxg80TxKyHOm5AeDZA_6NABzDVAeufZeNbRA/edit?usp=sharing
+
 For convenience in previewing without setting up SQL schemas, we've also hosted the index.html without JavaScript here:
 https://crypto-crustaceans.github.io/project2/
 
