@@ -130,7 +130,7 @@ var json = d3.json("data").then(function(response) {
   
   d3Calendar(data, "all");
   chartjsLine(lineData, "all");
-  // chartjsScatter(scatterData, "all")
+  chartjsScatter(scatterData, "all")
 
   // event listener
   yearSelectorGroup.selectAll("text")
@@ -245,7 +245,7 @@ var json = d3.json("data").then(function(response) {
       // run calendar function with selected year
       d3Calendar(data, selectedValue) 
       chartjsLine(lineData, selectedValue)
-      // chartjsScatter(scatterData, selectedValue)
+      chartjsScatter(scatterData, selectedValue)
 
     });
   });
@@ -360,8 +360,10 @@ News Sentiment: ${formatSentiment(d.sentiment)}`);
 
 function chartjsLine(data, selectedYear) {
 
-  d3.selectAll("canvas").remove()
-  d3.selectAll(".chartjs-hidden-iframe").remove();
+  d3.select("#chartjsline")
+    .selectAll("canvas")
+    .remove()
+  //d3.selectAll(".chartjs-hidden-iframe").remove();
 
   var lineCanvas = d3.select("#chartjsline")
     .append("canvas")
@@ -400,7 +402,7 @@ function chartjsLine(data, selectedYear) {
           elements: {
               point:{
                   radius: 0,
-                  hoverRadius: 20,
+                  hoverRadius: 15,
                   borderColor: "black"
               },
               line:{
@@ -422,21 +424,21 @@ function chartjsLine(data, selectedYear) {
                   },
                   time: {
                       displayFormats: {
-                          week: 'MMM YYYY'
+                          //week: 'MMM YYYY'
                       },
                       tooltipFormat: 'll'
                   },
                   scaleLabel: {
                       display: true,
                       labelString: 'Date'
-                  }
+                  },
               }],
               yAxes: [{
                   type: "linear",
                   display: true,
                   position: "left",
                   gridLines:{
-                      display: true
+                      display: false
                   },
                   labels: {
                       show:true,  
@@ -481,121 +483,123 @@ function chartjsLine(data, selectedYear) {
   myChart1.render()
 };
 
-// function chartjsScatter(data, selectedYear) {
+function chartjsScatter(data, selectedYear) {
 
-//   d3.selectAll("canvas").remove()
-//   d3.selectAll(".chartjs-hidden-iframe").remove();
+  d3.select("#chartjsscatter")
+    .selectAll("canvas")
+    .remove()
+  //d3.selectAll(".chartjs-hidden-iframe").remove();
 
-//   var scatterCanvas = d3.select("#chartjsscatter")
-//     .append("canvas")
-//     .attr("id", "scatterPlot")
+  var scatterCanvas = d3.select("#chartjsscatter")
+    .append("canvas")
+    .attr("id", "scatterPlot")
 
-//     var year = d3.groups(data, d => d.date.getUTCFullYear());
+    var year = d3.groups(data, d => d.date.getUTCFullYear());
   
-//     if (selectedYear == "all") {
-//       plot_data = data
-//     }
-//     else {
-//       filteredYear = year.filter(d => d[0] == selectedYear);
-//       plot_data = filteredYear[0][1];
-//     }
+    if (selectedYear == "all") {
+      plot_data = data
+    }
+    else {
+      filteredYear = year.filter(d => d[0] == selectedYear);
+      plot_data = filteredYear[0][1];
+    }
     
-//     var config = {
-//         type:'scatter',
-//         data: {
-//             datasets: [
-//                 {
-//                 label: "GSPC Scatter",
-//                 data: plot_data,
-//                 fill: false,
-//                 pointHitRadius: 3,
-//                 showLine: false
-//                 }
-//             ]
-//         },
-//         options: {
-//             responsive: true,
-//             title:      {
-//                 display: true,
-//                 text: "S&P 500 (GSPC): News Sentiment vs. Price Change"
-//             },
-//             elements: {
-//                 point:{
-//                     radius: 1,
-//                     hoverRadius: 5,
-//                     borderColor: "black"
-//                 },
-//                 line: {
+    var config = {
+        type:'scatter',
+        data: {
+            datasets: [
+                {
+                label: "GSPC Scatter",
+                data: plot_data,
+                fill: false,
+                pointHitRadius: 3,
+                showLine: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            title:      {
+                display: true,
+                text: "S&P 500 (GSPC): News Sentiment vs. Price Change"
+            },
+            elements: {
+                point:{
+                    radius: 2,
+                    hoverRadius: 10,
+                    borderColor: "black"
+                },
+                line: {
 
-//                 }
-//             },
-//             legend: {
-//                 display: false
-//             },
-//             scales: {
-//                 xAxes: [{
-//                     type: "linear",
-//                     display: true,
-//                     gridLines: {
-//                         display: false
-//                     },
-//                     labels: {
-//                         show: true,
-//                     },
-//                     scaleLabel: {
-//                         display: true,
-//                         labelString: 'Avg. Positive/Negative Sentiment (+/-)'
-//                     },
-//                     ticks: {
-//                         display: true,
-//                         callback: function (value) {
-//                             return (value).toFixed(2); // convert it to percentage
-//                           }
-//                     },
-//                 }],
-//                 yAxes: [{
-//                     type: "linear",
-//                     display: true,
-//                     position: "left",
-//                     gridLines:{
-//                         display: false
-//                     },
-//                     labels: {
-//                         show:true,  
-//                     },
-//                     scaleLabel: {
-//                         display: true,
-//                         labelString: 'Price Increase/Decrease (%)'
-//                     },
-//                     ticks: {
-//                         display: true,
-//                         callback: function (value) {
-//                             return (value * 100).toFixed(1); // convert it to percentage
-//                           }
+                }
+            },
+            legend: {
+                display: false
+            },
+            scales: {
+                xAxes: [{
+                    type: "linear",
+                    display: true,
+                    gridLines: {
+                        display: false
+                    },
+                    labels: {
+                        show: true,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Avg. Positive/Negative Sentiment (+/-)'
+                    },
+                    ticks: {
+                        display: true,
+                        callback: function (value) {
+                            return (value).toFixed(2); // convert it to percentage
+                          }
+                    },
+                }],
+                yAxes: [{
+                    type: "linear",
+                    display: true,
+                    position: "left",
+                    gridLines:{
+                        display: false
+                    },
+                    labels: {
+                        show:true,  
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Price Increase/Decrease (%)'
+                    },
+                    ticks: {
+                        display: true,
+                        callback: function (value) {
+                            return (value * 100).toFixed(1); // convert it to percentage
+                          }
                       
-//                     }
-//                 }],
-//             },
-//             tooltips: {
-//                 callbacks: {
-//                     label: function(tooltipItem, data) {
-//                         var xLabel =  Number(tooltipItem.xLabel).toFixed(2);
-//                         var yLabel = Number(tooltipItem.yLabel * 100).toFixed(2) + "%";
-//                         return ["Sentiment: " + xLabel, "Price: " + yLabel]
-//                     }
-//                 }
-//             }
-//         }
-//     };
-//     if (myChart2 != null) {
-//       th.myChart2.destroy()
-//     }
+                    }
+                }],
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var xLabel =  Number(tooltipItem.xLabel).toFixed(2);
+                        var yLabel = Number(tooltipItem.yLabel * 100).toFixed(2) + "%";
+                        return ["Sentiment: " + xLabel, "Price: " + yLabel]
+                    }
+                }
+            }
+        }
+    };
+    if (myChart2 != null) {
+      myChart2.destroy()
+    }
 
-//     var myChart2 = new Chart(
-//         document.getElementById('scatterPlot'),
-//         config
-//     );
+    var myChart2 = new Chart(
+        document.getElementById('scatterPlot'),
+        config
+    );
 
-//     myChart2.update()
-//     myChart2.render()
-// };
+    myChart2.update()
+    myChart2.render()
+};
