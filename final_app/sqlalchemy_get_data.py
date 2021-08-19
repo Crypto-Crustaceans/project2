@@ -30,7 +30,7 @@ def get_data():
         query = con.execute(
             "SELECT y.*, j.avg_sentiment \
             FROM yfinance y \
-            LEFT JOIN ( \
+            INNER JOIN ( \
                 SELECT DATE(n.date) as date, AVG(f.sentiment_score) as avg_sentiment \
                 FROM news n \
                 INNER JOIN finbert f on n.id = f.id \
